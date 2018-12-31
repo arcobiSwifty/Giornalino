@@ -1,0 +1,24 @@
+<a href="/">home</a>
+<h1>Articles</h1>
+<ul>
+{% for article in object_list %}
+    <li><a href="/articoli/{{article.id}}">{{ article.published|date }} - {{ article.title }}</a></li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="/articoli?page={{ page_obj.previous_page_number }}">Indietro</a>
+            {% endif %}
+            <span class="page-current">
+                Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="/articoli?page={{ page_obj.next_page_number }}">Avanti</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+</ul>
