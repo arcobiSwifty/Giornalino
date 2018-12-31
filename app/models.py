@@ -1,7 +1,7 @@
 from django.db import models
 
 class ReleaseYear(models.Model):
-    year = models.IntegerField(default=2018)
+    year = models.IntegerField(default=2019)
 
     def __str__(self):
         return str(self.year)
@@ -24,7 +24,7 @@ class Theme(models.Model):
 
 class Article(models.Model):
 
-    release_year = models.ForeignKey(ReleaseYear, on_delete=models.CASCADE)
+    release_year = models.ForeignKey(ReleaseYear, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=80)
     text = models.TextField(max_length=7000)
     author = models.CharField(max_length=200)
