@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article, Edition
+from .models import Article, Edition, Theme
 
 
 
@@ -18,3 +18,7 @@ class CreaArticolo(forms.ModelForm):
             'argument': 'tema',
             'text': 'contenuto'
         }
+
+class CreaCategoria(forms.ModelForm):
+    class Meta:
+        model = Theme

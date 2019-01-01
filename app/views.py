@@ -11,9 +11,21 @@ from django.views.generic.detail import DetailView
 from .models import ReleaseYear, Article, Theme, Edition
 from .forms import CreaArticolo
 
-class Success(View):
-    template_name = 'success.html'
-# Create your views here.
+
+#TODO:
+#implement CreaCategoria and DeleteCategoria (only admins)
+#implement user system and login
+#implement autori as auth.users
+#implement delete articoli (only admins)
+#implement update articoli (only creatore and admins)
+#implement edizioni (aggiungi + rimuovi)
+#implement filter articoli by name and by theme
+#implement images (giornalino's pdf)
+#implement copertina voting system
+#implement comments
+#implement user profile and records
+#UI
+
 class Home(View):
     template_name = 'home.html'
     def get(self, request):
@@ -45,3 +57,6 @@ class ArticoliCrea(CreateView):
         article.release_year = ReleaseYear.objects.get_or_create(year=int(now.year))
         article.save()
         return super().form_valid(form)
+
+class Success(View):
+    template_name = 'success.html'
