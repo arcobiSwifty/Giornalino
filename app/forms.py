@@ -19,6 +19,6 @@ class CreaArticolo(forms.ModelForm):
             'text': 'contenuto'
         }
 
-class CreaCategoria(forms.ModelForm):
-    class Meta:
-        model = Theme
+#class CreaCategoria(forms.ModelForm):
+    #class Meta:
+        #model = Theme

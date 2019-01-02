@@ -3,6 +3,9 @@ import datetime
 
 from django.shortcuts import render
 
+from django.contrib.auth import views as auth_views
+
+
 from django.views import View
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -13,7 +16,7 @@ from .forms import CreaArticolo
 
 
 #TODO:
-#implement CreaCategoria and DeleteCategoria (only admins)
+#sistema di approvazioni
 #implement user system and login
 #implement autori as auth.users
 #implement delete articoli (only admins)
@@ -26,10 +29,12 @@ from .forms import CreaArticolo
 #implement user profile and records
 #UI
 
+
 class Home(View):
     template_name = 'home.html'
     def get(self, request):
         return render(request, self.template_name, {})
+
 
 class ArticoliList(ListView):
     model = Article
@@ -39,12 +44,14 @@ class ArticoliList(ListView):
         context['now'] = timezone.now()
         return context
 
+
 class ArticoliDetail(DetailView):
     model = Article
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
+
 
 class ArticoliCrea(CreateView):
     template_name = 'app/article_create.html'
@@ -57,6 +64,7 @@ class ArticoliCrea(CreateView):
         article.release_year = ReleaseYear.objects.get_or_create(year=int(now.year))
         article.save()
         return super().form_valid(form)
+
 
 class Success(View):
     template_name = 'success.html'
