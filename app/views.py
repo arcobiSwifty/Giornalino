@@ -16,6 +16,7 @@ from .forms import CreaArticolo
 
 
 #TODO:
+#logout
 #sistema di approvazioni
 #implement user system and login
 #implement autori as auth.users

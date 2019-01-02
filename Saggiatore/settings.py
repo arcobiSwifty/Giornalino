@@ -107,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'it'
 
 APPEND_SLASH = False
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 TIME_ZONE = 'Europe/Berlin'
 
