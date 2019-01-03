@@ -17,14 +17,9 @@ from .forms import CreaArticolo
 
 
 #TODO:
-#sistema di approvazioni
-#implement autori as auth.users
 #implement edizioni (aggiungi + rimuovi)
 #implement filter articoli by name and by theme
 #implement images (giornalino's pdf)
-#implement copertina voting system
-#implement comments
-#implement user profile and records
 #UI
 
 
@@ -34,7 +29,6 @@ class Home(View):
         is_staff = request.user.is_staff
         return render(request, self.template_name, {'is_staff': is_staff})
 
-
 class Approvals(View):
     template_name = 'approvals.html'
     def get(self, request):
@@ -42,7 +36,6 @@ class Approvals(View):
             articoli = Article.objects.filter(approved=False)
             return render(request, self.template_name, {'articles': articoli})
         return HttpResponse('<b>404 page not found</b>')
-
 
 class ArticoliList(ListView):
     queryset = Article.objects.filter(approved=True)
@@ -52,14 +45,12 @@ class ArticoliList(ListView):
         context['now'] = timezone.now()
         return context
 
-
 class ArticoliDetail(DetailView):
     model = Article
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
-
 
 class ArticoliDelete(DeleteView):
     model = Article
@@ -77,6 +68,12 @@ class ArticoliCrea(CreateView):
         article.release_year = ReleaseYear.objects.get(year=int(now.year))
         article.save()
         return super().form_valid(form)
+
+class ArticoliApprova(UpdateView):
+    model = Article
+    fields = ['approved']
+    success_url = '/approva'
+    template_name_suffix = '_update_form'
 
 
 class Success(View):

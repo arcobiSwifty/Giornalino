@@ -14,6 +14,7 @@ urlpatterns = [
     path('crea', login_required(views.ArticoliCrea.as_view()), name='articoli-crea'),
     path('success', views.Success.as_view(), name='success'),
     path('approva', login_required(views.Approvals.as_view()), name='approvals'),
+    path('approvaarticolo/<int:pk>', login_required(views.ArticoliApprova.as_view()), name='articoli-approva'),
     path('elimina/<int:pk>', views.ArticoliDelete.as_view(), name='articoli-delete'),
 
 ]
