@@ -1,0 +1,14 @@
+<table>
+{% for articolo in articles %}
+  <tr>
+    <td>{{ articolo.title }}</td>
+    <td>{{ articolo.author.username }}</td>
+    <td><a href="/articoli/{{articolo.id}}">Vedi dettagli</a></td>
+    <td><a href="/elimina/{{articolo.id}}">Elimina</a></td>
+  </tr>
+{% empty %}
+
+  Non ci sono articoli da Approvare. <a href="/">Ritorna alla home</a>
+
+{% endfor %}
+</table>

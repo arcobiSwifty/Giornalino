@@ -13,4 +13,7 @@ urlpatterns = [
     path('articoli/<int:pk>', views.ArticoliDetail.as_view(), name='articoli-detail'),
     path('crea', login_required(views.ArticoliCrea.as_view()), name='articoli-crea'),
     path('success', views.Success.as_view(), name='success'),
+    path('approva', login_required(views.Approvals.as_view()), name='approvals'),
+    path('elimina/<int:pk>', views.ArticoliDelete.as_view(), name='articoli-delete'),
+
 ]

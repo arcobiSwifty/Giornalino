@@ -2,10 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Title</title>
   </head>
   <body>
-    <a href="/articoli">articoli</a>
-    <a href="/crea">crea</a>
+    {% if is_staff %}
+      <a href="/approva">Articoli da approvare</a>
+    {% endif %}
+    <a href="/articoli">Articoli</a>
+    <a href="/crea">Crea</a>
   </body>
 </html>

@@ -2,6 +2,7 @@ from django.utils import timezone
 import datetime
 
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from django.contrib.auth import views as auth_views
 
@@ -30,11 +31,21 @@ from .forms import CreaArticolo
 class Home(View):
     template_name = 'home.html'
     def get(self, request):
-        return render(request, self.template_name, {})
+        is_staff = request.user.is_staff
+        return render(request, self.template_name, {'is_staff': is_staff})
+
+
+class Approvals(View):
+    template_name = 'approvals.html'
+    def get(self, request):
+        if request.user.is_staff:
+            articoli = Article.objects.filter(approved=False)
+            return render(request, self.template_name, {'articles': articoli})
+        return HttpResponse('<b>404 page not found</b>')
 
 
 class ArticoliList(ListView):
-    model = Article
+    queryset = Article.objects.filter(approved=True)
     paginate_by = 20
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,6 +60,10 @@ class ArticoliDetail(DetailView):
         context['now'] = timezone.now()
         return context
 
+
+class ArticoliDelete(DeleteView):
+    model = Article
+    success_url = '/approva'
 
 class ArticoliCrea(CreateView):
     template_name = 'app/article_create.html'
@@ -66,3 +81,5 @@ class ArticoliCrea(CreateView):
 
 class Success(View):
     template_name = 'success.html'
+    def get(self, request):
+        return render(request, self.template_name)
