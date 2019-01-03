@@ -1,6 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
 {% if form.errors %}
-<b>Password o username errati</b><br>
+  <b>Password o username errati</b>
 {% endif %}
+
 
 {% if next %}
     {% if user.is_authenticated %}
@@ -13,6 +17,7 @@
   <p>Sei già autenticato come {{ user.username }}! <a href="/">Clicca qua</a> per andare alla home. <a href='/accounts/logout'>Clicca qua</a> per eseguire il logout.</p>
 {% else %}
   <p>Inserisci il tuo nome utente e la tua password.</p>
+{% endif %}
 {% endif %}
 
 
@@ -32,3 +37,4 @@
   <input type="hidden" name="next" value="{{ next }}" />
 
 </form>
+{% endblock %}
