@@ -16,12 +16,8 @@ from .forms import CreaArticolo
 
 
 #TODO:
-#logout
 #sistema di approvazioni
-#implement user system and login
 #implement autori as auth.users
-#implement delete articoli (only admins)
-#implement update articoli (only creatore and admins)
 #implement edizioni (aggiungi + rimuovi)
 #implement filter articoli by name and by theme
 #implement images (giornalino's pdf)
@@ -39,7 +35,7 @@ class Home(View):
 
 class ArticoliList(ListView):
     model = Article
-    paginate_by = 5
+    paginate_by = 20
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
@@ -62,7 +58,8 @@ class ArticoliCrea(CreateView):
     def form_valid(self, form):
         now = datetime.datetime.now()
         article = form.save(commit=False)
-        article.release_year = ReleaseYear.objects.get_or_create(year=int(now.year))
+        article.author = self.request.user
+        article.release_year = ReleaseYear.objects.get(year=int(now.year))
         article.save()
         return super().form_valid(form)
 

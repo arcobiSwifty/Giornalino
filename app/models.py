@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 class ReleaseYear(models.Model):
     year = models.IntegerField(default=2019)
 
@@ -27,7 +29,7 @@ class Article(models.Model):
     release_year = models.ForeignKey(ReleaseYear, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=80)
     text = models.TextField(max_length=7000)
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     published = models.DateTimeField(auto_now_add=True, blank=True)
     argument = models.ForeignKey(Theme, on_delete=models.CASCADE)
 
