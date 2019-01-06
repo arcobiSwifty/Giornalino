@@ -1,10 +1,16 @@
 <a href="/">home</a>
-<h1>Articles</h1>
+{% if anno %}
+<h1>Articoli per l'anno {{anno}}</h1>
+{% elif argomento %}
+<h1>Articoli per l'argomento {{argomento}}</h1>
+{% else %}
+<h1>Articoli</h1>
+{% endif %}
 <ul>
 {% for article in object_list %}
     <li><a href="/articoli/{{article.id}}">{{ article.published|date }} - {{ article.title }}</a></li>
 {% empty %}
-    <li>No articles yet.</li>
+    <li>Non è presente nessun articolo in questo periodo :(</li>
 {% endfor %}
 {% if is_paginated %}
     <div class="pagination">

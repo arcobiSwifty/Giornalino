@@ -10,5 +10,21 @@
     {% endif %}
     <a href="/articoli">Articoli</a>
     <a href="/crea">Crea</a>
+    <ul>
+      anni:
+      {% for anno in anni %}
+        <li><a href="/articoli/anno/{{anno.year}}">{{anno.year}}</a></li>
+      {% empty %}
+        non sono stati aggiunti anni. Vai su admin -> aggiungi anno.
+      {% endfor %}
+    </ul>
+    <ul>
+      argomenti:
+      {% for argomento in argomenti %}
+        <li><a href="/articoli/argomento/{{argomento.url_name}}">{{argomento.name}}</a></li>
+      {% empty %}
+      non sono presenti argomenti. Vai su admin -> aggiungi argomento.
+      {% endfor %}
+    </ul>
   </body>
 </html>
